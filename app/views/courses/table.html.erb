@@ -1,0 +1,100 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2">
+      <%= render "shared/sidenav" %>
+
+    </div>
+    <div class="col-sm-10">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">课程表</h3>
+        </div>
+        <div class="panel-body" style="min-height: 450px">
+          <% days = ["", "周一", "周二", "周三", "周四", "周五"] %>
+          <% times = ["1-2", "3-4", "5-6", "7-8", "9-11"] %>
+          <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th> </th>
+              <% days.each do |day| %>
+                <th> <%= day %> </th>
+              <% end %>
+            </tr>
+            </thead>
+
+            <tbody>
+              <tr rowspan="3" class="table-row">
+                <th rowspan="3" class="table-name">上午</th>
+              </tr>
+              <% times[0..1].each do |time| %>
+                <tr>
+                  <td><%= time %>节</td>
+                  <% days[1..5].each do |day| %>
+                    <td>
+                      <% current_user.courses.each do |course| %>
+                        <% if course.course_time.include?day and course.course_time.include?time %>
+                          <%= course.name %><br/>
+                          @<%= course.class_room %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+
+              <tr rowspan="3" class="table-row">
+                <th rowspan="3" class="table-name">下午</th>
+              </tr>
+              <% times[2..3].each do |time| %>
+                <tr>
+                  <td><%= time %>节</td>
+                  <% days[1..5].each do |day| %>
+                    <td>
+                      <% current_user.courses.each do |course| %>
+                        <% if time== "5-6" %>
+                          <% if course.course_time.include?"5-6" or course.course_time.include? "5-7" and course.course_time.include?day %>
+                            <%= course.name %>
+                              <% if course.course_time.include? "5-7" %>
+                                <%= "(5-7节)" %>
+                              <%end %>
+                            <br/>@<%= course.class_room %>
+                          <% end %>
+                        <% else %>
+                          <% if course. course_time.include?day and course.course_time.include?time %>
+                            <%= course.name %>
+                            <br/>@<%= course.class_room %>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+            
+              <tr rowspan="2" class="table-row">
+                <th rowspan="2" class="table-name">晚上</th>
+              </tr>
+              <tr>
+                <td>9-11节</td>
+                <% days[1..5].each do |day| %>
+                  <td>
+                    <% current_user.courses.each do |course| %>
+                      <% if course.course_time.include?day and course.course_time.include?"9-1" %>
+                        <%= course.name %>
+                        <% if course.course_time.include? "9-10" %>
+                          <%= "(9-10节)" %>
+                        <%end %>
+                        <br/>@<%= course.class_room %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
+
+            </tbody>
+          </table>
+        </div
+      </div>
+    </div>
+  </div>
+</div>

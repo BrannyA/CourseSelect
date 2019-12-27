@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     end
     collection do
       get :list
+      get :hint
+      get :table
     end
   end
 
