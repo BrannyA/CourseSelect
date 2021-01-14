@@ -4,7 +4,7 @@ gem 'bootstrap-sass', '~> 3.3.7'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.11'
 gem 'faker', '~> 1.6.3'
-gem 'rails_admin', '~> 0.8.1'
+gem 'rails_admin', '~> 1.4.3'
 gem 'pry-rails'
 gem 'carrierwave'
 gem 'paperclip'
